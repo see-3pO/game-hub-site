@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
-interface Game {
+export interface Game {
   id: number;
   name: string;
+  background_image: string;
 }
 
 // response object interface
@@ -20,18 +21,34 @@ const UseGames = () => {
   const [error, setError] = useState("");
 
   const controller = new AbortController();
+  console.log("Fetching games data...");
+
+  const startTime = performance.now();
 
   useEffect(() => {
     apiClient
       .get<GamesResponse>("/games", { signal: controller.signal })
-      .then((response) => setGames(response.data.results))
+      .then((response) => {
+        const endTime = performance.now();
+        console.log("Games data fetched successfully");
+        console.log(`Fetch duration: ${(endTime - startTime).toFixed(2)} ms`);
+        setGames(response.data.results);
+      })
       .catch((err) => {
-        if (err instanceof CanceledError) return;
+        const endTime = performance.now();
+        if (err instanceof CanceledError) {
+          console.log("Request canceled:", err.message);
+          return;
+        }
+        console.log(`Error duration: ${(endTime - startTime).toFixed(2)} ms`);
         setError(err.message);
       });
 
     // clean up function
-    return () => controller.abort();
+    return () => {
+      console.log("Aborting fetch request...");
+      controller.abort();
+    };
   }, []);
 
   return { games, error };
