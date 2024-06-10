@@ -19,3 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </React.StrictMode>
 );
 ```
+
+The design swell concept in parent_platforms
+
+Possible correction
