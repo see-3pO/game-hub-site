@@ -18,6 +18,7 @@ export interface Game {
   name: string;
   background_image: string;
   parent_platforms: { platform: Platform }[];
+  metacritic: number;
 }
 
 // response object interface
@@ -31,6 +32,9 @@ const useGames = () => {
     {
       queryKey: fetchDataKey,
       queryFn: fetchGames,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false
     }
   )
   return { games: data?.results || [], error, isLoading };
