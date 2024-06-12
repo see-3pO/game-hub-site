@@ -1,12 +1,11 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
-import UseGames from "../hooks/UseGames";
 import GameCard from "./GameCard";
 import useGames from "../hooks/UseGames";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
 
 const GameGrid = () => {
-  const { games, error, isLoading } = useGames(); // Using the custom hook to get games data
+  const { responseData, error, isLoading } = useGames(); // Using the custom hook to get games data
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   // if (isLoading) return <Text>Loading...</Text>;  // Displaying loading state
@@ -26,7 +25,7 @@ const GameGrid = () => {
             <GameCardSkeleton key={skeleton} />
           </GameCardContainer>
         ))}
-      {games.map((game) => (
+      {responseData?.map((game) => (
         <GameCardContainer>
           <GameCard key={game.id} game={game} />
         </GameCardContainer>

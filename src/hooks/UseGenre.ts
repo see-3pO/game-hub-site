@@ -1,7 +1,7 @@
 // custom hook to fetch genres
-import { useQuery } from "@tanstack/react-query";
 import { fetchGenreKey } from "../utils/query-keys";
-import { fetchGenres } from "../services/api";
+import { fetchData } from "../services/api";
+import useData from "./UseData";
 
 export interface Genre {
   id: number;
@@ -14,16 +14,22 @@ export interface GenreResponse {
   results: Genre[];
 }
 
-const useGenre = () => {
-  const { data, error, isLoading } = useQuery({
-    queryKey: fetchGenreKey,
-    queryFn: fetchGenres,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+const useGenre = () =>
+  useData<Genre>({
+    qKey: fetchGenreKey,
+    qFunction: () => fetchData("/genres"),
   });
 
-  return { genres: data?.results || [], error, isLoading };
-};
+// const useGenre = () => {
+//   const { data, error, isLoading } = useQuery({
+//     queryKey: fetchGenreKey,
+//     queryFn: fetchGenres,
+//     refetchOnMount: false,
+//     refetchOnWindowFocus: false,
+//     refetchOnReconnect: false,
+//   });
+
+//   return { genres: data?.results || [], error, isLoading };
+// };
 
 export default useGenre;
