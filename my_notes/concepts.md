@@ -22,7 +22,34 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ```
 
 5th June 2024
-The design swell concept in parent_platforms
+The design smell concept in parent_platforms
+
+A code design smell is a tangible and observable violations of code design/ development fundamentals that can lead to poor quality code and technical debt.
+- **Technical debt:** Debt that accrues when you intentionally or unintentionally make non-optimal technical solutions.
+
+Common code smells include:
+* Duplicate code
+Duplications can include copy-paste code, repetitive code structures.
+* Improper names
+
+* Dead code
+A dead code is a section of code in the source code of a program that is of no use and is never reached or called. This is due to changes in requirements or corrections, making some parts of code obsolete.
+* Middle man
+Middle man refers to the class that delegates work to another class and doesn't have any independent functionality. For instance, most of the methods of this class just call the methods of other classes.
+* Long parameter list
+This hinders code readability and reusability and makes it prone to bugs and errors. In general, it is best to limit the number of parameters in a method to three or four. 
+* Data Clumps
+Data clumps occur when a set of data items always appear together in multiple places, as fields in multiple classes or as parameters in multiple functions. 
+* Long Functions
+When a function gets too long, it means that it is responsible for too many tasks. 
+* Primitive obsession
+
+* Feature Envy
+* Comments
+ Leaving the commented-out code in place is a code smell Because the commented-out code would be a complete mystery for other developers and they would have no idea about what conditions should bring it back into the program.
+
+[Source]("https://www.opsera.io/blog/what-is-code-smell")
+
 
 Possible correction
 
@@ -98,6 +125,8 @@ const GamesComponent = () => {
 export default GamesComponent;
 
 ```
+
+
 
 UseGames V1
 
