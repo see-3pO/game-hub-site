@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { fetchGames } from "../services/api";
 import { fetchDataKey } from "../utils/query-keys";
-import { useQuery, QueryKey } from "@tanstack/react-query";
+import { useQuery} from "@tanstack/react-query";
 import { CanceledError } from "axios";
 
 export interface Platform {
