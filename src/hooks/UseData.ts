@@ -8,7 +8,7 @@ export interface FetchResponse<T> {
 }
 
 interface Props<T> {
-  qKey: string[];
+  qKey: (string | number)[];
   qFunction: () => Promise<FetchResponse<T>>;
 }
 

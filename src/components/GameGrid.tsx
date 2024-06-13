@@ -3,9 +3,14 @@ import GameCard from "./GameCard";
 import useGames from "../hooks/UseGames";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
+import { Genre } from "../hooks/UseGenre";
 
-const GameGrid = () => {
-  const { responseData, error, isLoading } = useGames(); // Using the custom hook to get games data
+interface Props {
+  selectedGenre: Genre | null;
+}
+
+const GameGrid = ({ selectedGenre }: Props) => {
+  const { responseData, error, isLoading } = useGames(selectedGenre); // Using the custom hook to get games data
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   // if (isLoading) return <Text>Loading...</Text>;  // Displaying loading state
@@ -21,13 +26,13 @@ const GameGrid = () => {
     >
       {isLoading &&
         skeletons.map((skeleton) => (
-          <GameCardContainer>
-            <GameCardSkeleton key={skeleton} />
+          <GameCardContainer key={skeleton}>
+            <GameCardSkeleton />
           </GameCardContainer>
         ))}
       {responseData?.map((game) => (
-        <GameCardContainer>
-          <GameCard key={game.id} game={game} />
+        <GameCardContainer key={game.id}>
+          <GameCard game={game} />
         </GameCardContainer>
       ))}
     </SimpleGrid>

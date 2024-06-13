@@ -3,6 +3,7 @@
 import { fetchData } from "../services/api";
 import { fetchDataKey } from "../utils/query-keys";
 import useData from "./UseData";
+import { Genre } from "./UseGenre";
 
 export interface Platform {
   id: number;
@@ -24,10 +25,11 @@ export interface GamesResponse {
   results: Game[];
 }
 
-const useGames = () =>
+const useGames = (selectedGenre: Genre | null) =>
   useData<Game>({
-    qKey: fetchDataKey,
-    qFunction: () => fetchData<Game>("/games"),
+    qKey: selectedGenre ? [...fetchDataKey, String(selectedGenre.id)] : fetchDataKey,
+    qFunction: () =>
+      fetchData<Game>("/games", { params: { genres: selectedGenre?.id?.toString() } }),
   });
 
 // const useGames = () => {
