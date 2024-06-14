@@ -4,7 +4,7 @@ import { fetchData } from "../services/api";
 import { fetchPlatformsKey } from "../utils/query-keys";
 import useData from "./UseData";
 
-interface Platform {
+export interface Platform {
   id: number;
   name: string;
   slug: string;

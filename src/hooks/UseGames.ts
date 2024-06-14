@@ -25,23 +25,30 @@ export interface GamesResponse {
   results: Game[];
 }
 
-const useGames = (selectedGenre: Genre | null) =>
-  useData<Game>({
-    qKey: selectedGenre ? [...fetchDataKey, String(selectedGenre.id)] : fetchDataKey,
+const useGames = (
+  selectedGenre: Genre | null,
+  selectedPlatform: Platform | null
+) => {
+  const qKey =
+    selectedGenre || selectedPlatform
+      ? [
+          ...fetchDataKey,
+          selectedGenre ? String(selectedGenre.id) : null,
+          selectedPlatform ? selectedPlatform.id : null,
+        ].filter(Boolean) // Filters out any null values
+      : fetchDataKey;
+  return useData<Game>({
+    qKey: qKey,
     qFunction: () =>
-      fetchData<Game>("/games", { params: { genres: selectedGenre?.id?.toString() } }),
+      fetchData<Game>("/games", {
+        params: {
+          genres: selectedGenre?.id?.toString(),
+          platforms: selectedPlatform?.id,
+        },
+      }),
   });
-
-// const useGames = () => {
-//   const { data, error, isLoading } = useQuery<GamesResponse, Error>({
-//     queryKey: fetchDataKey,
-//     queryFn: fetchGames,
-//     refetchOnMount: false,
-//     refetchOnWindowFocus: false,
-//     refetchOnReconnect: false,
-//   });
-//   return { games: data?.results || [], error, isLoading };
-//   // return { data, error, isLoading };
-// };
+};
 
 export default useGames;
+
+//selectedGenre ? [...fetchDataKey, String(selectedGenre.id)] : fetchDataKey

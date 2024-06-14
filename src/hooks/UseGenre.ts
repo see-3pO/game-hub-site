@@ -21,16 +21,4 @@ const useGenre = () =>
     qFunction: () => fetchData("/genres"),
   });
 
-// const useGenre = () => {
-//   const { data, error, isLoading } = useQuery({
-//     queryKey: fetchGenreKey,
-//     queryFn: fetchGenres,
-//     refetchOnMount: false,
-//     refetchOnWindowFocus: false,
-//     refetchOnReconnect: false,
-//   });
-
-//   return { genres: data?.results || [], error, isLoading };
-// };
-
 export default useGenre;
