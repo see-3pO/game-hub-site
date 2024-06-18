@@ -1,5 +1,6 @@
 // custom hook for fetching the games
 
+import { GameQuery } from "../App";
 import { fetchData } from "../services/api";
 import { fetchDataKey } from "../utils/query-keys";
 import useData from "./UseData";
@@ -25,16 +26,13 @@ export interface GamesResponse {
   results: Game[];
 }
 
-const useGames = (
-  selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
-) => {
+const useGames = (gameQuery: GameQuery) => {
   const qKey =
-    selectedGenre || selectedPlatform
+    gameQuery.genre || gameQuery.platform
       ? [
           ...fetchDataKey,
-          selectedGenre ? String(selectedGenre.id) : null,
-          selectedPlatform ? selectedPlatform.id : null,
+          gameQuery.genre ? String(gameQuery.genre.id) : null,
+          gameQuery.platform ? gameQuery.platform.id : null,
         ].filter(Boolean) // Filters out any null values
       : fetchDataKey;
   return useData<Game>({
@@ -42,8 +40,8 @@ const useGames = (
     qFunction: () =>
       fetchData<Game>("/games", {
         params: {
-          genres: selectedGenre?.id?.toString(),
-          platforms: selectedPlatform?.id,
+          genres: gameQuery.genre?.id?.toString(),
+          platforms: gameQuery.platform?.id,
         },
       }),
   });

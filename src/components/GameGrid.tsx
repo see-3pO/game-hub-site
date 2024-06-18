@@ -5,14 +5,14 @@ import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
 import { Genre } from "../hooks/UseGenre";
 import { Platform } from "../hooks/UsePlatforms";
+import { GameQuery } from "../App";
 
 interface Props {
-  selectedGenre: Genre | null;
-  selectedPlatform: Platform | null;
+  gameQuery: GameQuery;
 }
 
-const GameGrid = ({ selectedGenre, selectedPlatform }: Props) => {
-  const { responseData, error, isLoading } = useGames(selectedGenre, selectedPlatform); // Using the custom hook to get games data
+const GameGrid = ({ gameQuery }: Props) => {
+  const { responseData, error, isLoading } = useGames(gameQuery); // Using the custom hook to get games data
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   // if (isLoading) return <Text>Loading...</Text>;  // Displaying loading state
