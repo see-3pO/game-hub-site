@@ -28,11 +28,12 @@ export interface GamesResponse {
 
 const useGames = (gameQuery: GameQuery) => {
   const qKey =
-    gameQuery.genre || gameQuery.platform
+    gameQuery.genre || gameQuery.platform || gameQuery.sortOrder
       ? [
           ...fetchDataKey,
           gameQuery.genre ? String(gameQuery.genre.id) : null,
           gameQuery.platform ? gameQuery.platform.id : null,
+          gameQuery.sortOrder ? gameQuery.sortOrder: null,
         ].filter(Boolean) // Filters out any null values
       : fetchDataKey;
   return useData<Game>({
@@ -42,6 +43,7 @@ const useGames = (gameQuery: GameQuery) => {
         params: {
           genres: gameQuery.genre?.id?.toString(),
           platforms: gameQuery.platform?.id,
+          ordering: gameQuery.sortOrder,
         },
       }),
   });

@@ -4,6 +4,7 @@ The image urls in the responses accept a crop prameter that allows one to resize
 */
 
 const cropImageURL = (url: string) => {
+  if (!url) return '';
   const target = "media/";
   const index = url.indexOf(target) + target.length;
   const slicedURL = url.slice(0, index) + "crop/600/400/" + url.slice(index);
