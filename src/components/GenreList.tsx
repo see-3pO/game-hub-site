@@ -19,14 +19,14 @@ interface Props {
 const GenreList = ({ onSelectedGenre, selectedGenre }: Props) => {
   const { responseData, error, isLoading } = useGenre();
 
-  if (error) return <Text>{error.message}</Text>;
+  if (error) return null;
   if (isLoading) return <Spinner />;
 
   return (
     <>
       <Heading fontSize='2xl' marginBottom={3}>Genres</Heading>
       <List>
-        {responseData?.map((genre) => (
+        {responseData.results?.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image

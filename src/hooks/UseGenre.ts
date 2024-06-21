@@ -2,6 +2,7 @@
 import { fetchGenreKey } from "../utils/query-keys";
 import { fetchData } from "../services/api";
 import useData from "./UseData";
+import genres from "../data/genres";
 
 export interface Genre {
   id: number;
@@ -15,10 +16,6 @@ export interface GenreResponse {
   results: Genre[];
 }
 
-const useGenre = () =>
-  useData<Genre>({
-    qKey: fetchGenreKey,
-    qFunction: () => fetchData("/genres"),
-  });
+const useGenre = () => ({ responseData: genres, isLoading: false, error: null })
 
 export default useGenre;
